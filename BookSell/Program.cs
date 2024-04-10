@@ -33,7 +33,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+     pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
 
 // the question mark here means it can be defined null or nothing
 
