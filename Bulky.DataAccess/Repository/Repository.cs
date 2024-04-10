@@ -46,5 +46,15 @@ namespace BookSell.DataAccess.Repository
            dbSet.RemoveRange(entity);
 
         }
+
+        public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null, string? includeProperties = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public T Get(Expression<Func<T, bool>> filter, string? includeProperties = null, bool tracked = false)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
