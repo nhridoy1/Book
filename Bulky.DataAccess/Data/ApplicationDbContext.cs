@@ -72,7 +72,7 @@ namespace BookSell.DataAccess.Data
                      ISBN = "0316024740",
                      ListPrice = 99.0,
                      Price = 90.0,
-                     Price50 = 85.0 
+                     Price50 = 85.0,
                      Price100 = 80.0,
                      CategoryId = 2
 
@@ -86,7 +86,7 @@ namespace BookSell.DataAccess.Data
                      ISBN = "0375726268",
                      ListPrice = 99.0,
                      Price = 90.0,
-                     Price50 = 85.0
+                     Price50 = 85.0,
                      Price100 = 80.0,
                      CategoryId = 2
                  },
@@ -99,7 +99,7 @@ namespace BookSell.DataAccess.Data
                      ISBN = "0060936228",
                      ListPrice = 99.0,
                      Price = 90.0,
-                     Price50 = 85.0
+                     Price50 = 85.0,
                      Price100 = 80.0,
                      CategoryId = 3
                  }

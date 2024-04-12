@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookSell.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240410143549_addForeignKeyForCategoryProductRelation")]
-    partial class addForeignKeyForCategoryProductRelation
+    [Migration("20240412043557_pushingProductAndCategoryToDb")]
+    partial class pushingProductAndCategoryToDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -122,7 +122,7 @@ namespace BookSell.DataAccess.Migrations
                         {
                             Id = 1,
                             Author = " Dave Eggers",
-                            CategoryId = 0,
+                            CategoryId = 1,
                             Description = "A Heartbreaking Work of Staggering Genius is the moving memoir of a college senior who, in the space of five weeks, loses both of his parents to cancer and inherits his eight-year-old brother. This exhilarating debut that manages to be simultaneously hilarious and wildly inventive as well as a deeply heartfelt story of the love that holds a family together.",
                             ISBN = "0375725784",
                             ListPrice = 99.0,
@@ -135,7 +135,7 @@ namespace BookSell.DataAccess.Migrations
                         {
                             Id = 2,
                             Author = "Ishmael Beah",
-                            CategoryId = 0,
+                            CategoryId = 1,
                             Description = "This is how wars are fought now: by children, hopped-up on drugs and wielding AK-47s. Children have become soldiers of choice. In the more than fifty conflicts going on worldwide, it is estimated that there are some 300,000 child soldiers. Ishmael Beah used to be one of them.",
                             ISBN = "9780374531263",
                             ListPrice = 99.0,
@@ -148,7 +148,7 @@ namespace BookSell.DataAccess.Migrations
                         {
                             Id = 3,
                             Author = " Ernest Hemingway",
-                            CategoryId = 0,
+                            CategoryId = 1,
                             Description = "Published posthumously in 1964, A Moveable Feast remains one of Ernest Hemingway’s most enduring works. Since Hemingway’s personal papers were released in 1979, scholars have examined the changes made to the text before publication. Now, this special restored edition presents the original manuscript as the author prepared it to be published.",
                             ISBN = "143918271X",
                             ListPrice = 99.0,
@@ -161,7 +161,7 @@ namespace BookSell.DataAccess.Migrations
                         {
                             Id = 4,
                             Author = "William Manchester",
-                            CategoryId = 0,
+                            CategoryId = 2,
                             Description = "Inspiring, outrageous... A thundering paradox of a man. Douglas MacArthur, one of only five men in history to have achieved the rank of General of the United States Army. He served in World Wars I, II, and the Korean War, and is famous for stating that \"in war, there is no substitute for victory.\"\r\n",
                             ISBN = "0316024740",
                             ListPrice = 99.0,
@@ -174,7 +174,7 @@ namespace BookSell.DataAccess.Migrations
                         {
                             Id = 5,
                             Author = "Kai Bird, Martin J. Sherwin",
-                            CategoryId = 0,
+                            CategoryId = 2,
                             Description = "THE INSPIRATION FOR THE ACADEMY AWARD®-WINNING MAJOR MOTION PICTURE OPPENHEIMER • \"A riveting account of one of history’s most essential and paradoxical figures.”—Christopher Nolan",
                             ISBN = "0375726268",
                             ListPrice = 99.0,
@@ -187,7 +187,7 @@ namespace BookSell.DataAccess.Migrations
                         {
                             Id = 6,
                             Author = "Patti Smith",
-                            CategoryId = 0,
+                            CategoryId = 3,
                             Description = "“Reading rocker Smith’s account of her relationship with photographer Robert Mapplethorpe, it’s hard not to believe in fate. How else to explain the chance encounter that threw them together, allowing both to blossom? Quirky and spellbinding.” -- People",
                             ISBN = "0060936228",
                             ListPrice = 99.0,
