@@ -25,7 +25,7 @@ namespace BookSell.Areas.Admin.Controllers
             return View(booklist);
         }
 
-        public IActionResult Create()
+        public IActionResult Upsert(int? id)
         {
             ProductVM productVM = new()
             {
@@ -38,11 +38,22 @@ namespace BookSell.Areas.Admin.Controllers
                 Product = new Product()
             };
 
-            return View(productVM);
+            if (id == null || id == 0)
+            {
+                // create funtionality
+                return View(productVM);
+            } else
+            {
+                // update funtionality
+                productVM.Product = _unitOfWork.Product.Get(u => u.Id == id);
+                return View(productVM);
+            }
+
+            
         }
 
         [HttpPost]
-        public IActionResult Create(ProductVM productVm)
+        public IActionResult Upsert(ProductVM productVm, IFormFile? file)
         {
           
 
@@ -65,39 +76,6 @@ namespace BookSell.Areas.Admin.Controllers
 
         }
 
-
-        public IActionResult Edit(int? id)
-        {
-
-            if (id == null && id == 0)
-            {
-                return NotFound();
-            }
-
-            Product? singleBook = _unitOfWork.Product.Get(u => u.Id == id);
-
-            if (singleBook == null)
-            { 
-                return NotFound(); 
-            }
-
-
-            return View(singleBook);
-        }
-
-        [HttpPost]
-        public IActionResult Edit(Product bookObj)
-        {
-            if (ModelState.IsValid)
-            {
-                _unitOfWork.Product.Update(bookObj);
-                _unitOfWork.Save();
-                TempData["success"] = "Book is updated";
-                return RedirectToAction("Index", "Product");
-            }
-
-            return View();
-        }
 
         public IActionResult Delete(int? id)
         {
