@@ -3,6 +3,7 @@ using BookSell.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookSell.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240412045318_addingImageURLColumnToProduct")]
+    partial class addingImageURLColumnToProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,6 +41,9 @@ namespace BookSell.DataAccess.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
+                    b.Property<int>("price")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
@@ -47,19 +53,22 @@ namespace BookSell.DataAccess.Migrations
                         {
                             Id = 1,
                             DisplayOrder = "1",
-                            Name = "Action"
+                            Name = "Action",
+                            price = 0
                         },
                         new
                         {
                             Id = 2,
                             DisplayOrder = "2",
-                            Name = "SciFi"
+                            Name = "SciFi",
+                            price = 0
                         },
                         new
                         {
                             Id = 3,
                             DisplayOrder = "3",
-                            Name = "History"
+                            Name = "History",
+                            price = 0
                         });
                 });
 

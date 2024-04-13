@@ -1,7 +1,10 @@
 ﻿using BookSell.DataAccess.Repository;
 using BookSell.DataAccess.Repository.IRepository;
 using BookSell.Models;
+using BookSell.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
 
 namespace BookSell.Areas.Admin.Controllers
 {
@@ -24,26 +27,42 @@ namespace BookSell.Areas.Admin.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            ProductVM productVM = new()
+            {
+                // using projection here for dynamic conversion
+                CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
+            {
+                Text = u.Name,
+                Value = u.Id.ToString(),
+            }),
+                Product = new Product()
+            };
+
+            return View(productVM);
         }
 
         [HttpPost]
-        public IActionResult Create(Product product)
+        public IActionResult Create(ProductVM productVm)
         {
-            if (product.Title == product.Description.ToString())
-            {
-                ModelState.AddModelError("Name", "book name and description can't be same");
-            }
+          
 
             if (ModelState.IsValid)
             {
-                _unitOfWork.Product.Add(product);
+                _unitOfWork.Product.Add(productVm.Product);
                 _unitOfWork.Save();
                 TempData["success"] = "A new book created successfully";
-                return RedirectToAction("Index", "Product");
+                return RedirectToAction("Index");
+            } else
+            {
+                productVm.CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString(),
+                });
+
+                return View(productVm);
             }
 
-            return View();
         }
 
 
