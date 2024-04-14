@@ -2,6 +2,7 @@
 using BookSell.DataAccess.Repository.IRepository;
 using BookSell.Models;
 using BookSell.Models.ViewModels;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace BookSell.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            List<Product> booklist = _unitOfWork.Product.GetAll().ToList();
+            List<Product> booklist = _unitOfWork.Product.GetAll(includeProperties: "Category").ToList();
 
             return View(booklist);
         }
@@ -113,7 +114,7 @@ namespace BookSell.Areas.Admin.Controllers
         }
 
 
-        public IActionResult Delete(int? id)
+        public IActionResult Delete(int id)
         {
             if (id == null || id == 0)
             {
@@ -131,21 +132,42 @@ namespace BookSell.Areas.Admin.Controllers
         }
 
    
-        [HttpPost, ActionName("Delete")]
-        public IActionResult DeletePost(int? id)
+
+        #region
+
+        [HttpGet]
+        public IActionResult GetAll()
         {
+            List<Product> booklist = _unitOfWork.Product.GetAll(includeProperties: "Category").ToList();
+            return Json(new {data =  booklist});
+        }
 
-            Product? book = _unitOfWork.Product.Get(u => u.Id == id);
+        [HttpDelete]
+        public IActionResult Delete(int? id)
+        {
+            var productToBeDeleted = _unitOfWork.Product.Get(u => u.Id == id);
 
-            if (book == null)
+            if (productToBeDeleted == null)
             {
-                NotFound();
+                return Json(new { success = false, message = "Error while deleting" });
             }
 
-            _unitOfWork.Product.Remove(book);
+            string productPath = @"images\products\product-" + id;
+
+            string oldImagePath = Path.Combine(_IwebEnvironment.WebRootPath, productToBeDeleted.ImageURL.TrimStart('\\'));
+
+            if (System.IO.File.Exists(oldImagePath))
+            {
+                System.IO.File.Delete(oldImagePath);
+            }
+
+
+            _unitOfWork.Product.Remove(productToBeDeleted);
             _unitOfWork.Save();
-            TempData["success"] = "Book deleted";
-            return RedirectToAction("Index", "Product");
+
+            return Json(new { success = true, message = "Delete Successful" });
         }
+
+        #endregion
     }
 }
