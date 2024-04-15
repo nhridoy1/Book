@@ -114,25 +114,6 @@ namespace BookSell.Areas.Admin.Controllers
         }
 
 
-        public IActionResult Delete(int id)
-        {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-
-            Product singleBook = _unitOfWork.Product.Get(u => u.Id == id);
-
-            if (singleBook == null)
-            {
-                return NotFound();
-            }
-
-            return View(singleBook);
-        }
-
-   
-
         #region
 
         [HttpGet]
