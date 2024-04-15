@@ -26,6 +26,13 @@ namespace BookSell.Areas.Customer.Controllers
             return View(productList);
         }
 
+        public IActionResult Details(int productID)
+        {
+            Product product = _unitOfWork.Product.Get(u => u.Id == productID, includeProperties: "Category");
+
+            return View(product);
+        }
+
         public IActionResult Privacy()
         {
             return View();
