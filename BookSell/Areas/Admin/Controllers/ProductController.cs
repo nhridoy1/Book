@@ -2,6 +2,8 @@
 using BookSell.DataAccess.Repository.IRepository;
 using BookSell.Models;
 using BookSell.Models.ViewModels;
+using BookSell.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,6 +12,7 @@ using System.Collections.Generic;
 namespace BookSell.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class ProductController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
